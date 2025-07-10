@@ -1,6 +1,6 @@
 {
   "name": "nuxt-dist2oss",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "when build app, auto upload .output/public to oss",
   "repository": {
     "type": "git",
