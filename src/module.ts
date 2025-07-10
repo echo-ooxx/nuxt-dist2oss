@@ -1,15 +1,16 @@
 import { defineNuxtModule, useLogger } from '@nuxt/kit'
-
 import type { ModuleOptions } from './type'
 import { dist2Oss } from './dist2oss'
+import { name, version } from '../package.json'
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: '@nuxtjs/dist2Oss',
-    configKey: 'dist2Oss',
+    name,
+    configKey: 'dist2oss',
     compatibility: {
       nuxt: '>=3.0.0',
     },
+    version,
   },
   // Default configuration options of the Nuxt module
   defaults: {},
