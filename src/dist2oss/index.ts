@@ -32,9 +32,11 @@ class UploadFactory {
 
 class dist2Oss {
   private strategy: Uploader
+  private _config: UploaderConfig
 
   constructor(type: UPLOAD_TYPE, config: UploaderConfig) {
-    const factory = new UploadFactory(type, config)
+    this._config = config
+    const factory = new UploadFactory(type, this._config)
     this.strategy = factory.setStrategy()
   }
 
@@ -47,7 +49,7 @@ class dist2Oss {
     const targetDir = this.strategy.targetDir
     const baseDir = this.strategy.baseDir
     const prefix = publicDir.substring(baseDir.length)
-    const files = (await fg(`${publicDir}/**/*`)).map((path) => {
+    let files = (await fg(`${publicDir}/**/*`)).map((path) => {
       const localDir = `${prefix}${path.replace(`${publicDir}`, '')}`
       const stat = statSync(path)
       return {
@@ -57,6 +59,12 @@ class dist2Oss {
         size: fileSizeRenderFormat(stat.size, 'KB'),
       }
     })
+
+    if (this._config.excludes) {
+      const excludesFiles = await fg(this._config.excludes.map(path => `${publicDir}/${path}`))
+      const _tmp = new Set(excludesFiles)
+      files = files.filter(file => !_tmp.has(file.realPath))
+    }
     // 上传之前的回调
     beforeUpload(files)
 

@@ -18,7 +18,6 @@ export default defineNuxtModule<ModuleOptions>({
     // const resolver = createResolver(import.meta.url)
     // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
     // addPlugin(resolver.resolve('./runtime/plugin'))
-
     if (_options.enable) {
       const logger = useLogger('dist2oss')
       _nuxt.hook('nitro:build:public-assets', async (nitroConfig) => {
