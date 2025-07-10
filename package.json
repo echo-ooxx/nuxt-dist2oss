@@ -2,7 +2,10 @@
   "name": "nuxt-dist2oss",
   "version": "1.0.1",
   "description": "when build app, auto upload .output/public to oss",
-  "repository": "your-org/my-module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/echo-ooxx/nuxt-dist2oss.git"
+  },
   "license": "MIT",
   "type": "module",
   "exports": {
